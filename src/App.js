@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './index.css';
+import {Route} from 'react-router-dom';
+import Home from './components/Home';
+import Friends from './components/Friends';
+import Photos from './components/Photos';
+import Navbar from './components/Navbar';
+import FriendDetail from './components/FriendDetail';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+const App = ({isAutorise}) => {
+  return(
+    <div>
+      <Navbar/>
+      <div className="container pt-5">
+        <Route exact path="/" component={Home} exact/>
+        <Route exact path="/friends" component={Friends} exact/>
+        <Route exact path="/photos" component={Photos} exact/>
+        <Route path='/friends/:id' component={FriendDetail} exact />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isAutorise: state.autorize.name
+})
+
+export default connect(mapStateToProps)(App);
